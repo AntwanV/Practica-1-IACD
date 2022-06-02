@@ -20,9 +20,6 @@ import sys
 sys.path.append("/jugar_tenis.py")
 from jugar_tenis import X_tenis, y_tenis
 
-print(X_tenis)
-print(y_tenis)
-
 # ====================================================
 # PARTE I: IMPLEMENTACIÓN DEL CLASIFICADOR NAIVE BAYES
 # ====================================================
@@ -39,14 +36,15 @@ class NaiveBayes():
         for i in range(len(X)):
             if not (y[i] in probas):
                 probas[y[i]] = 1
-                probas["cond " + y[i]] = [{}]*np.shape(X)[1]
+                probas["cond " + y[i]] = [{} for t in range(np.shape(X)[1])]
             else:
                 probas[y[i]] += 1
             for j in range(np.shape(X)[1]):
                 if not (X[i][j] in probas["cond " + y[i]][j]):
-                    probas["cond " + y[i]][j][X[i,j]] = 1
+                    probas["cond " + y[i]][j][X[i][j]] = 1
                 else:
-                    probas["cond " + y[i]][j][X[i,j]] += 1
+                    probas["cond " + y[i]][j][X[i][j]] += 1
+                print(probas)
         return probas
 
 
